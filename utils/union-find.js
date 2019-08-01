@@ -10,8 +10,8 @@ class UnionFind {
         //this.
     }
 
-    add(point) {
-        this.clusters.push(new Point(point))
+    amountOfClusters() {
+        return 100;
     }
 
     find(point) {
