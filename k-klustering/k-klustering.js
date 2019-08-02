@@ -1,4 +1,5 @@
-const {readGraphAsAdjancyList} = require('../old/utils');
+const path = require('path')
+const {readGraphAsAdjancyList} = require('../utils/fs');
 const {MinHeap} = require('../utils/heap');
 const UnionFind = require('../utils/union-find');
 
@@ -9,7 +10,7 @@ class Vertex {
 
     valueOf() {
         return this.id;
-    }    
+    }
 }
 
 class Edge {
@@ -28,19 +29,32 @@ function kClustering(graph, clusters) {
     const { setOfEdges, setOfVertexes } = graph
     const minHeap = new MinHeap(setOfEdges)
     const unionFind = new UnionFind(setOfVertexes)
-    do {
-        const minEdge = minHeap.extract()
-        unionFind.union(minEdge.vertexA, minEdge.vertexB)
-    } while(unionFind.amountOfClusters > clusters || minHeap.size() > 0)
+    //const minEdge = minHeap.extract()
+    //unionFind.union(minEdge.vertexA, minEdge.vertexB)
+    //return
+    console.log(unionFind.amountOfClusters())
+    while(unionFind.amountOfClusters() > clusters && minHeap.size() > 0) {
+        try {
+            const minEdge = minHeap.extract()
+            unionFind.union(minEdge.vertexA, minEdge.vertexB)
+            if (minHeap.size() <= 0) {
+                return 0
+            }
+        } catch (e) {
+            //console.log(minHeap, unionFind)
+            break;
+        }
+    } 
     if (minHeap.size() <= 0) {
         return 0
     }
+    //console.log(unionFind.amountOfClusters())
     const edge = minHeap.extract()
     return edge.cost
 }
 
 function test(file, clusters) {
-    readGraphAsAdjancyList(file)
+    readGraphAsAdjancyList(path.resolve(__dirname, file))
     .then(graph => {
         const setOfVertexes = new Set();
         const visited = new Set();
@@ -61,7 +75,8 @@ function test(file, clusters) {
             visited.add(vaId)
             visited.add(vbId)
         })
-        return { setOfEdges, setOfVertixes }
+        //console.log(setOfVertexes)
+        return { setOfEdges, setOfVertexes }
     })
     .then(data => {
         const answer = kClustering(data, clusters);
