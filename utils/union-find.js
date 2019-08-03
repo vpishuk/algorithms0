@@ -21,16 +21,18 @@ class UnionFind {
     }
 
     compressPath(point, root) {
-        while (point.leader) {
-            point.leader = root
+        let cluster = this.map.get(point.valueOf())
+        while (cluster.leader) {
+            cluster.leader = root
             root.rank++
-            point.leader.rank--
-            point = point.leader
+            cluster.leader.rank--
+            cluster = cluster.leader
         }
     }
 
     find(point) {
-        let leader = point
+        const cluster = this.map.get(point.valueOf())
+        let leader = cluster
         while (leader.leader) {
             leader = leader.leader
         }
@@ -38,26 +40,28 @@ class UnionFind {
     }
 
     union(pointA, pointB) {
-        const clusterA = this.map.get(pointA.valueOf())
-        const clusterB = this.map.get(pointB.valueOf())
-        if (clusterA && clusterB) {
-            const parentA = this.find(clusterA)
-            this.compressPath(clusterA, parentA)
-            const parentB = this.find(clusterB)
-            this.compressPath(clusterB, parentB)
-            if (parentA && parentB && parentA !== parentB) {
-                if (parentA.rank > parentB.rank) {
-                    console.log('merge b to a')
-                    parentB.leader = clusterA
-                    this.clusterLeaders.delete(parentB)
-                } else {
-                    console.log('merge a to b')
-                    parentA.leader = clusterB
-                    this.clusterLeaders.delete(parentA)
-                }
+        console.log('-----')
+        console.log('union for', pointA, pointB)
+        const parentA = this.find(pointA)
+        console.log('pointA has leader', parentA)
+        this.compressPath(pointA, parentA)
+        const parentB = this.find(pointB)
+        console.log('pointB has leader', parentB)
+        this.compressPath(pointB, parentB)
+        if (parentA && parentB && parentA !== parentB) {
+            if (parentA.rank > parentB.rank) {
+                parentB.leader = parentA
+                parentA.rank++
+                console.log('uniaon b under a', parentB)
+                this.clusterLeaders.delete(parentB)
+            } else {
+                parentA.leader = parentB
+                parentB.rank++
+                console.log('uniaon a under b', parentA)
+                this.clusterLeaders.delete(parentA)
             }
         } else {
-            console.log('clusters not found for ', pointA, pointB)
+            console.log('point A and point B are in the same cluster')
         }
         //console.log(this.clusterLeaders.size)
     }

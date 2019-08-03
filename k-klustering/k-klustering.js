@@ -29,28 +29,42 @@ function kClustering(graph, clusters) {
     const { setOfEdges, setOfVertexes } = graph
     const minHeap = new MinHeap(setOfEdges)
     const unionFind = new UnionFind(setOfVertexes)
-    //const minEdge = minHeap.extract()
-    //unionFind.union(minEdge.vertexA, minEdge.vertexB)
-    //return
-    console.log(unionFind.amountOfClusters())
+    console.log('amount of clusters', unionFind.amountOfClusters())
     while(unionFind.amountOfClusters() > clusters && minHeap.size() > 0) {
         try {
             const minEdge = minHeap.extract()
+            console.log('cost', minEdge.cost, 'vertexA', minEdge.vertexA, 'vertexB', minEdge.vertexB)
             unionFind.union(minEdge.vertexA, minEdge.vertexB)
             if (minHeap.size() <= 0) {
                 return 0
             }
         } catch (e) {
-            //console.log(minHeap, unionFind)
-            break;
+            console.error(e)
+            return
         }
     } 
     if (minHeap.size() <= 0) {
         return 0
     }
-    //console.log(unionFind.amountOfClusters())
-    const edge = minHeap.extract()
-    return edge.cost
+    console.log('---------------')
+    console.log('leaders', unionFind.clusterLeaders, '\n')
+    while (minHeap.size() > 0) {
+        const edge = minHeap.extract()
+        const parentA = unionFind.find(edge.vertexA)
+        const parentB = unionFind.find(edge.vertexB)
+        console.log('edge', edge)
+        console.log('vertextA has parent', parentA)
+        console.log('vertextB has parent', parentB)
+        if (parentA !== parentB) {
+            console.log('Hurray!')
+            return edge.cost
+        }
+
+        if (minHeap.size() <= 0) {
+            return 0
+        }
+    }
+    return 0
 }
 
 function test(file, clusters) {
@@ -64,18 +78,17 @@ function test(file, clusters) {
             const vaId = parseInt(element[0], 10);
             const vbId = parseInt(element[1], 10);
             const cost = parseInt(element[2], 10);
-
             const va = new Vertex(vaId);
             const vb = new Vertex(vbId);
             const vbVaEdge = new Edge(vb, va, cost);
-            setOfEdges.add(vbVaEdge)
 
+            setOfEdges.add(vbVaEdge)
             if (!visited.has(vaId)) setOfVertexes.add(va)
             if (!visited.has(vbId)) setOfVertexes.add(vb)
             visited.add(vaId)
             visited.add(vbId)
         })
-        //console.log(setOfVertexes)
+
         return { setOfEdges, setOfVertexes }
     })
     .then(data => {
@@ -84,4 +97,4 @@ function test(file, clusters) {
     });
 }
 
-test('data/k-clustering.txt', 4);
+test('data/k-clustering.txt', 4); // 106
