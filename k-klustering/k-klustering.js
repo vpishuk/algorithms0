@@ -1,5 +1,5 @@
 const path = require('path')
-const {readGraphAsAdjancyList} = require('../utils/fs');
+const {readFileAsMatrix} = require('../utils/fs');
 const {MinHeap} = require('../utils/heap');
 const UnionFind = require('../utils/union-find');
 
@@ -68,7 +68,7 @@ function kClustering(graph, clusters) {
 }
 
 function test(file, clusters) {
-    readGraphAsAdjancyList(path.resolve(__dirname, file))
+    readFileAsMatrix(path.resolve(__dirname, file))
     .then(graph => {
         const setOfVertexes = new Set();
         const visited = new Set();

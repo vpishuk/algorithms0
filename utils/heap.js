@@ -74,6 +74,9 @@ class MinHeap extends Heap {
 
     _rebalance() {
         let top = 0;
+        if (this._size <= 0) {
+            return
+        }
         const elem = this._heap[0].valueOf();
         while (top < this._size - 1) {
             let [left, right] = this._iChildren(top);

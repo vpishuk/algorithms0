@@ -1,12 +1,26 @@
 const fs = require('fs');
 const readline = require('readline');
 
-function readGraphAsAdjancyList(file) {
+function readFileAsMatrix(file) {
     const arr = [];
     let firstLine = true;
     return readFile(file, (line) => {
         if (line && !firstLine) {
-            arr.push(line.replace(/\s+/gi, " ").split(" "))
+            arr.push(line.replace(/\s+/gi, " ").split(" ").map(a => parseInt(a, 10)))
+        }
+        firstLine = false;
+    }).then(() => {
+        console.log('read done');
+        return arr;
+    })
+}
+
+function readFileAsSetOfStrings(file) {
+    const arr = [];
+    let firstLine = true;
+    return readFile(file, (line) => {
+        if (line && !firstLine) {
+            arr.push(line.replace(/\s*/gi, ""))
         }
         firstLine = false;
     }).then(() => {
@@ -38,5 +52,6 @@ function readFile(file, callback) {
 
 module.exports = {
     readFile,
-    readGraphAsAdjancyList
+    readFileAsMatrix,
+    readFileAsSetOfStrings
 }
