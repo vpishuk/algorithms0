@@ -235,10 +235,6 @@ class TreeNode {
     setRightChild(child) {
         this.rightChild = child;
     }
-
-    getSize() {
-
-    }
 }
 
 const RB_TREE_COLORS = {

@@ -1,5 +1,5 @@
 const path = require('path')
-const {readFileAsMatrix, readFileAsSetOfStrings} = require('../utils/fs');
+const {readFileAsSetOfStrings} = require('../utils/fs');
 const UnionFind = require('../utils/union-find');
 
 function  calculateCost(left, right) {
