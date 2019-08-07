@@ -1,6 +1,20 @@
 const fs = require('fs');
 const readline = require('readline');
 
+function readFileAsArray(file) {
+    const arr = [];
+    let firstLine = true;
+    return readFile(file, (line) => {
+        if (line && !firstLine) {
+            arr.push(parseInt(line.replace(/\s+/gi, " "), 10))
+        }
+        firstLine = false;
+    }).then(() => {
+        console.log('read done');
+        return arr;
+    })
+}
+
 function readFileAsMatrix(file) {
     const arr = [];
     let firstLine = true;
@@ -52,6 +66,7 @@ function readFile(file, callback) {
 
 module.exports = {
     readFile,
+    readFileAsArray,
     readFileAsMatrix,
     readFileAsSetOfStrings
 }
