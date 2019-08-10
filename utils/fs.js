@@ -29,6 +29,24 @@ function readFileAsMatrix(file) {
     })
 }
 
+function readFileAsMatrixWithDefinition(file) {
+    const arr = [];
+    let firstLine = true;
+    let definition = [];
+    return readFile(file, (line) => {
+        if (line && !firstLine) {
+            arr.push(line.replace(/\s+/gi, " ").split(" ").map(a => parseInt(a, 10)))
+        }
+        if (firstLine) {
+            definition = line.replace(/\s+/gi, " ").split(" ").map(a => parseInt(a, 10))
+        }
+        firstLine = false;
+    }).then(() => {
+        console.log('read done');
+        return [definition, arr];
+    })
+}
+
 function readFileAsSetOfStrings(file) {
     const arr = [];
     let firstLine = true;
@@ -68,5 +86,6 @@ module.exports = {
     readFile,
     readFileAsArray,
     readFileAsMatrix,
+    readFileAsMatrixWithDefinition,
     readFileAsSetOfStrings
 }
