@@ -2,70 +2,78 @@ const {readFile} = require('../utils/fs');
 const {MinHeap} = require('../utils/heap');
 const {Edge, Vertex} = require('../utils/graphs');
 
-function findMinVertex(weightedMap) {
-    const iterator = weightedMap.entries();
-    let min = Infinity;
-    let vertex;
-    let curr;
-    do {
-        curr = iterator.next();
-        if (curr.value && curr.value[1] <= min) {
-            min = curr.value[1];
-            vertex = curr.value[0];
-        }
-    } while(!curr.done);
-    return vertex;
+class HeapElem {
+    constructor(vertex, cost) {
+        this.vertex = parseInt(vertex, 10);
+        this.cost = parseInt(cost, 10);
+    }
+
+    valueOf() {
+        return this.cost;
+    }
 }
 
-function DijkstraShortestPath(graph, sVertex) {
+
+function DijkstraShortestPath(graph, sVertexLabel) {
     const visited = new Set();
-    const weighted = new Map();
     const heap = new MinHeap();
     const scores = new Map();
-    weighted.set(sVertex, 0);
+    const sVertex = graph.get(sVertexLabel)
+    sVertex.setWeight(0)
+    heap.insert(new HeapElem(sVertexLabel, 0));
     do {
-        const vertex = findMinVertex(weighted);
-        visited.add(vertex);
-        const dijkstraScore = weighted.get(vertex);
-        const edges = graph.get(vertex) || [];
+        const heapElem = heap.extract()
+        if (visited.has(heapElem.vertex)) {
+            continue;
+        }
+        const vertex = graph.get(heapElem.vertex)
+        visited.add(heapElem.vertex);
+        const dijkstraScore = vertex.getWeight()
+        const edges = vertex.getEdges();
         for (let i = 0; i < edges.length; i++) {
-            const [adjacentVertex, weight] = edges[i];
+            const adjacentVertex = graph.get(edges[i].vertexB);
+            const weight = edges[i].cost;
             if (!visited.has(adjacentVertex)) {
-                const oldScore = weighted.get(adjacentVertex) || Infinity;
+                const oldScore = adjacentVertex.getWeight() || Infinity;
                 const newScore = weight + dijkstraScore;
                 const currScore = newScore < oldScore ? newScore : oldScore;
-                weighted.set(adjacentVertex, currScore);
+                adjacentVertex.setWeight(currScore)
+                heap.insert(new HeapElem(adjacentVertex.getLabel(), currScore))
             }
         }
-        scores.set(vertex, dijkstraScore);
-        weighted.delete(vertex);
-    } while(weighted.size > 0);
+        scores.set(vertex.getLabel(), dijkstraScore);
+    } while(heap.size() > 0);
     return scores;
 }
 
 function getGraph(file) {
+    const graph = new Map()
     return readFile(file, (line) => {
-        const vertex = new Vertex()
+        let vertex;
         line
             .replace(/\s+/gi, " ")
+            .trim()
             .split(" ")
             .forEach((i, idx) => {
-                if (!i) {
-                    return acc;
-                }
                 if (idx === 0) {
-                    vertex.setLabel(i)
+                    const label = parseInt(i, 10)
+                    if (graph.has(label)) {
+                        vertex = graph.get(label)
+                    } else {
+                        vertex = new Vertex(label)
+                    }
                 } else {
                     const arr = i.split(',').map(k => parseInt(k, 10))
-                    vertex.addEdge(new Edge(vertex.label, arr[0], arr[1]))
+                    const veretexB = parseInt(arr[0], 10)
+                    vertex.addEdge(new Edge(vertex.label, veretexB, arr[1]))
+                    if (!graph.has(veretexB)) {
+                        graph.set(veretexB, new Vertex(veretexB))
+                    }
                 }
             });
-    }).then(arr => {
-        return arr.reduce((acc, curr) => {
-            acc.set(curr.vertex, curr.edges);
-            return acc;
-        }, new Map());
-    })
+        graph.set(vertex.getLabel(), vertex)
+        
+    }).then(() => graph)
 }
 
 function test(file, listOfVertexes, expected) {
@@ -82,5 +90,5 @@ module.exports = {
     DijkstraShortestPath
 }
 
-test('dijkstras.txt', [7,37,59,82,99,115,133,165,188,197]);
+test('data/test.txt', [7,37,59,82,99,115,133,165,188,197]);
 //console.log(findMinVertex(m));
