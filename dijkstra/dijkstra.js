@@ -90,5 +90,5 @@ module.exports = {
     DijkstraShortestPath
 }
 
-test('data/test.txt', [7,37,59,82,99,115,133,165,188,197]);
+//test('data/test.txt', [7,37,59,82,99,115,133,165,188,197]);
 //console.log(findMinVertex(m));
