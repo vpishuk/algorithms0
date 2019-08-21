@@ -8,8 +8,8 @@ function BellmanFord(vertices, edges, sVertex) {
     })
     distance[0] = Infinity
     distance[sVertex.getLabel()] = 0
-    //console.log(sVertex)
-    //console.log('INITIAL', distance.join(', '))
+    // console.log(sVertex)
+    // console.log('INITIAL', distance.join(', '))
 
     for(let i = 0; i <= vertices.length; i++) {
         edges.forEach(edge => {
@@ -17,17 +17,21 @@ function BellmanFord(vertices, edges, sVertex) {
             // console.log('va', edge.vertexA, 'vb', edge.vertexB, 'cost', edge.cost)
             // console.log('dva', distance[edge.vertexA], 'dvb', distance[edge.vertexB])
             if (distance[edge.vertexA] + edge.cost < distance[edge.vertexB]) {
-                //console.log('set distance[edge.vertexB] to', distance[edge.vertexA] + edge.cost)
+                // console.log('set distance[edge.vertexB] to', distance[edge.vertexA] + edge.cost)
                 distance[edge.vertexB] = distance[edge.vertexA] + edge.cost;
             } else {
-                //console.log('no changes')
+                // console.log('no changes')
             }
         })
     }
-
-    const hasNegativeCycles = edges.every(edge =>  distance[edge.vertexA] + edge.cost < distance[edge.vertexB])
-    if (hasNegativeCycles) {
-        return null;
+    // console.log('results')
+    // console.log(distance)
+    // console.log('detecting negative cycles')
+    for(let i = 0; i < edges.length; i++) {
+        const edge = edges[i]
+        if (distance[edge.vertexA] + edge.cost < distance[edge.vertexB]) {
+            return null
+        }
     }
     return distance
 }

@@ -22,27 +22,42 @@ function DijkstraShortestPath(graph, sVertexLabel) {
     sVertex.setWeight(0)
     heap.insert(new HeapElem(sVertexLabel, 0));
     do {
+        // console.log('-------')
+        // console.log('ITERATION')
+        // console.log(heap)
+        // console.log('SCORES')
+        // console.log(scores)
         const heapElem = heap.extract()
         if (visited.has(heapElem.vertex)) {
             continue;
         }
+        //console.log('heap elem')
+        //console.log(heapElem)
         const vertex = graph.get(heapElem.vertex)
         visited.add(heapElem.vertex);
         const dijkstraScore = vertex.getWeight()
+        //console.log('vertex', vertex)
         const edges = vertex.getEdges();
         for (let i = 0; i < edges.length; i++) {
             const adjacentVertex = graph.get(edges[i].vertexB);
             const weight = edges[i].cost;
             if (!visited.has(adjacentVertex)) {
-                const oldScore = adjacentVertex.getWeight() || Infinity;
+                const oldScore = adjacentVertex.getWeight();
                 const newScore = weight + dijkstraScore;
                 const currScore = newScore < oldScore ? newScore : oldScore;
+                //console.log('before set', adjacentVertex, oldScore, newScore, currScore)
                 adjacentVertex.setWeight(currScore)
                 heap.insert(new HeapElem(adjacentVertex.getLabel(), currScore))
             }
         }
+        //console.log('calculated score', vertex.getLabel(), dijkstraScore)
         scores.set(vertex.getLabel(), dijkstraScore);
     } while(heap.size() > 0);
+
+    // console.log('--------')
+    // console.log('OUT')
+    // console.log(scores)
+    // console.log('--------')
     return scores;
 }
 
