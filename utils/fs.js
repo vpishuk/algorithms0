@@ -20,7 +20,7 @@ function readFileAsMatrix(file) {
     let firstLine = true;
     return readFile(file, (line) => {
         if (line && !firstLine) {
-            arr.push(line.replace(/\s+/gi, " ").split(" ").map(a => parseInt(a, 10)))
+            arr.push(line.replace(/\s+/gi, " ").split(" ").map(a => parseFloat(a)))
         }
         firstLine = false;
     }).then(() => {

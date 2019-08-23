@@ -8,6 +8,10 @@ class Vertex {
         this.id = id;
     }
 
+    getLabel() {
+        return this.id
+    }
+
     valueOf() {
         return this.id;
     }
@@ -29,42 +33,42 @@ function kClustering(graph, clusters) {
     const { setOfEdges, setOfVertexes } = graph
     const minHeap = new MinHeap(setOfEdges)
     const unionFind = new UnionFind(setOfVertexes)
-    console.log('amount of clusters', unionFind.amountOfClusters())
+    // console.log('amount of clusters', unionFind.amountOfClusters())
     while(unionFind.amountOfClusters() > clusters && minHeap.size() > 0) {
         try {
             const minEdge = minHeap.extract()
-            console.log('cost', minEdge.cost, 'vertexA', minEdge.vertexA, 'vertexB', minEdge.vertexB)
+            // console.log('cost', minEdge.cost, 'vertexA', minEdge.vertexA, 'vertexB', minEdge.vertexB)
             unionFind.union(minEdge.vertexA, minEdge.vertexB)
             if (minHeap.size() <= 0) {
-                return 0
+                return [0, unionFind]
             }
         } catch (e) {
             console.error(e)
-            return
+            return [0, null]
         }
-    } 
-    if (minHeap.size() <= 0) {
-        return 0
     }
-    console.log('---------------')
-    console.log('leaders', unionFind.clusterLeaders, '\n')
+    if (minHeap.size() <= 0) {
+        return [0, unionFind]
+    }
+    // console.log('---------------')
+    // console.log('leaders', unionFind.clusterLeaders, '\n')
     while (minHeap.size() > 0) {
         const edge = minHeap.extract()
         const parentA = unionFind.find(edge.vertexA)
         const parentB = unionFind.find(edge.vertexB)
-        console.log('edge', edge)
-        console.log('vertextA has parent', parentA)
-        console.log('vertextB has parent', parentB)
+        // console.log('edge', edge)
+        // console.log('vertextA has parent', parentA)
+        // console.log('vertextB has parent', parentB)
         if (parentA !== parentB) {
-            console.log('Hurray!')
-            return edge.cost
+            // console.log('Hurray!')
+            return [edge.cost, unionFind]
         }
 
         if (minHeap.size() <= 0) {
-            return 0
+            return [0, unionFind]
         }
     }
-    return 0
+    return [0, unionFind]
 }
 
 function test(file, clusters) {
@@ -97,4 +101,10 @@ function test(file, clusters) {
     });
 }
 
-test('data/k-clustering.txt', 4); // 106
+module.exports = {
+    kClustering,
+    Edge,
+    test
+}
+
+//test('data/k-clustering.txt', 4); // 106
