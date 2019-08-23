@@ -37,6 +37,15 @@ class Vertex {
         this.label = parseInt(label || 0, 10);
         this.weight = weight === undefined ? Infinity : parseInt(weight, 10);
         this.edges = edges || []
+        this.meta = {}
+    }
+
+    setMetadta(meta) {
+        this.meta = Object.assign(this.meta, meta || {})
+    }
+
+    getMetadta(key) {
+        return this.meta[key]
     }
 
     setLabel(label) {
