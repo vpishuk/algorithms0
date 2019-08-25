@@ -2,49 +2,132 @@ const { readFileAsMatrix } = require('../utils/fs');
 const { Vertex } = require('../utils/graphs');
 const { kClustering, Edge } = require('../k-klustering/k-klustering')
 
-function TSPProblem(vertices, distances, path, r) {
-    if (vertices.length === 1) {
-        //path[r] = vertices[0]
-        return [0, vertices[0]]
+function factorial(n) {
+    if (n <= 1) {
+        return 1
     }
-    r = r || 0
-    if (r === 0) {
-        //path = []
+    if (n <= 2) {
+        return 2
     }
-    let lastVertex = null
+    return n * factorial(n - 1)
+}
+
+function calcCombinations(n, k) {
+    return factorial(n) / (factorial(n - k) * factorial(k))
+}
+
+function generateSets(m, arr) {
+    // const totalAmountOfSets = calcCombinations(arr.length - 1, m)
+    // const allSets = [];
+    // for (let k = 0; k < arr.length; k++) {
+    //     const set = [arr[0]].concat(generateSets(m - 1, ))
+    //     for (let i = 0; i < m; i++) {
+    //         set.add(originalSet[i])
+    //     } 
+    // }
+    // set.add(startVertex)
+}
+
+function getKey(path) {
+    return path.map(v => v ? v.getLabel() : '').join('')
+}
+
+function getCombinations(allVertexes, start, size, path, paths) {
+    paths = paths || []
+    if (size <= 0) {
+        paths.push(path)
+        return
+    }
+    for (let i = start; i < allVertexes.length; i++) {
+        const subpath = path ? path.slice() : []
+        subpath.push(allVertexes[i])
+        getCombinations(allVertexes, i + 1, size - 1, subpath, paths)
+    }
+    return paths;
+}
+
+function TSPProblem(vertices, distances, r) {
+    const A = new Map()
     const startVertex = vertices[0]
-    let minCost = Infinity
-    let subproblem = []
-    const spacing = (new Array(r)).fill('', 0, r).join('   ') + "+"
-    console.log(spacing, '-----------------')
-    console.log(spacing, 'Level #', r)
-    for (let m = 1; m < vertices.length; m++) {
-        subproblem = [vertices[m]];
-        for (let i = 1; i < vertices.length; i++) {
-            if (i != m) {
-                subproblem.push(vertices[i])
-            }
-        }
-        console.log(spacing, 'Iteration #', m)
-        console.log(spacing, '----')
-        console.log(spacing, subproblem)
-        console.log(spacing, 'sV', startVertex.getLabel(), 'm', vertices[m].getLabel(), 'distance', distances.get(`${startVertex.getLabel()}_${vertices[m].getLabel()}`))
-        const result = TSPProblem(subproblem, distances, path, r + 1)
-        const subproblemCost = result[0]
-        const newCost = subproblemCost + distances.get(`${startVertex.getLabel()}_${vertices[m].getLabel()}`)
-        if (newCost < minCost) {
-            //console.log(spacing, 'changing mincost', 'prev path', path[r])
-            minCost = newCost
-            lastVertex = result[1]
-            //path[r] = startVertex
-        }
-        console.log(spacing, 'subproblemCost', subproblemCost, 'cost', newCost, 'minCost', minCost)
-        console.log(spacing, 'lastv', lastVertex)
-        //console.log(spacing, 'path', path)
+    A.set(getKey([startVertex]), [0, 0])
+    for (i = 1; i < vertices.length; i++) {
+        const key = getKey([vertices[i]])
+        A.set(key, [Infinity, Infinity])
     }
-    console.log(spacing, 'END Recursion #', r)
-    console.log(spacing, '-----------------')
-    return r === 0 ? [minCost + distances.get(`${startVertex.getLabel()}_${lastVertex.getLabel()}`), lastVertex, path] : [minCost, lastVertex];
+    // console.log(A)
+    const spaces = (new Array(5)).fill(' ').join('')
+    const dashes = "-----------------------------"
+    for (let m = 2; m <= vertices.length; m++) {
+        console.log(dashes)
+        console.log("SIZE of SET", m)
+        // console.log("-----")
+        const paths = getCombinations(vertices, 0, m)
+        // for each set from sets
+        for (let p = 0; p < paths.length; p++) {
+            // console.log(spaces.repeat(2) + "-----")
+            // console.log(spaces.repeat(2) + "SET", getKey(paths[p]))
+            if (paths[p].indexOf(startVertex) < 0) {
+                // console.log(spaces.repeat(2) + "SKIPPED...")
+                continue
+            }
+            const path = paths[p]
+            const pathKey = getKey(path)
+            // for each element j from set
+            for (let j = 0; j < path.length; j++) {
+                const jElem = path[j]
+                const jl = jElem.getLabel()
+                // console.log(spaces.repeat(3) + "-----")
+                // console.log(spaces.repeat(3) + "jElem", jElem.getLabel())
+                // console.log(spaces.repeat(3))
+                if (jl === startVertex.getLabel()) {
+                    // console.log(spaces.repeat(3) + "SKIPPED")
+                    continue
+                }
+                let minDist = Infinity
+                path[j] = null
+                const pathWithoutJKey = getKey(path);
+                // console.log(spaces.repeat(3) + "pathWithoutJKey", pathWithoutJKey)
+                // console.log(spaces.repeat(3) + "pathWithoutJKey value", A.get(pathWithoutJKey))
+                path[j] = jElem
+                // count minDistance
+                for (let k = 0; k < path.length; k++) {
+                    const kElem = path[k]
+                    const kl = kElem.getLabel()
+                    if (kl === jl) {
+                        continue
+                    }
+                    const Ckj = distances.get(`${kl}_${jl}`)
+                    // console.log(spaces.repeat(4), `A[S - ${j}, ${k}]`, A.get(pathWithoutJKey)[kl])
+                    const newDistance = A.get(pathWithoutJKey)[kl] + Ckj
+                    if (newDistance < minDist) {
+                        minDist = newDistance
+                    }
+                }
+                // console.log(spaces.repeat(3) + `A[S,${jl}]`, minDist)
+                const values = A.get(pathKey) || []
+                values[jl] = minDist
+                A.set(pathKey, values)
+            }
+            // console.log(spaces.repeat(2) + "-----")
+        }
+    }
+    const key = getKey(vertices)
+    const values = A.get(key)
+    let minCost = Infinity
+    // console.log("-----")
+    // console.log(A)
+    // console.log("-----")
+    // console.log(distances)
+    // console.log("-----")
+    // console.log(values)
+    
+    for (let j = 1; j < values.length; j++) {
+        const Cij = distances.get(`${startVertex.getLabel()}_${j}`)
+        if (values[j] + Cij < minCost) {
+            minCost = values[j] + Cij
+        }
+    }
+    return minCost
 }
 
 function getGraph(file) {
@@ -53,7 +136,7 @@ function getGraph(file) {
         //const edges = []
         const distances = new Map()
         matrix.forEach((line, idx) => {
-            const vertex = new Vertex(idx + 1, 0)
+            const vertex = new Vertex(idx, 0)
             vertex.setMetadta({ coords: { x: line[0], y: line[1] } })
             vertices.push(vertex)
         })
@@ -64,7 +147,7 @@ function getGraph(file) {
                 if (k === i) continue;
                 const vB = vertices[k]
                 const coordsB = vB.getMetadta('coords')
-                const distance = Math.sqrt(Math.pow(Math.abs(coordsA.x - coordsB.x), 2) + Math.pow(Math.abs(coordsA.y - coordsB.y), 2))
+                const distance = Math.sqrt(Math.pow(coordsA.x - coordsB.x, 2) + Math.pow(coordsA.y - coordsB.y, 2))
                 distances.set(`${vA.getLabel()}_${vB.getLabel()}`, distance)
                 distances.set(`${vB.getLabel()}_${vA.getLabel()}`, distance)
                 //edges.push(new Edge(vA, vB, distance))
@@ -78,39 +161,12 @@ module.exports = {
     TSPProblem
 }
 
-// getGraph('data/tsp.txt')
-//     .then(([vertices, distances, edges]) => {
-//         const [a, clustering] = kClustering({ setOfEdges: new Set(edges), setOfVertexes: new Set(vertices) }, 3)
-//         // console.log(distances.get('13_12'))
-//         // console.log(distances.get('1_6'))
-
-//         console.log(clustering.getClusterized())
-//     })
-
-const left = 14857.412337607882
-const right = 17633.798342533977
-
-
 const p1 = getGraph('data/tsp.txt')
     .then(([vertices, distances]) => {
-        // console.log(distances)
-        //const a = vertices.map(v => `(${v.getMetadta('coords').x.toFixed(4)}, ${v.getMetadta('coords').y.toFixed(4)})`)
-        //console.log(a.join(','))
-        console.log(distances.get('11_12'))
-        console.log(left + right - 2 * distances.get('11_12'))
-        return
+        //const paths = getCombinations(vertices, 0, 5);
+        //console.log(paths)
+        console.log(distances)
         const result = TSPProblem(vertices, distances)
         console.log(result)
         return result
     })
-
-// const p2 = getGraph('data/test.txt')
-//     .then(([vertices, distances, edges]) => {
-//         const result = TSPProblem(vertices, distances)
-//         console.log(result)
-//         return result
-//     })
-
-// Promise.all([p1, p2]).then(([c1, c2]) => {
-//     console.log(Math.floor(c1 + c2 - 370.66966425646433))
-// })
