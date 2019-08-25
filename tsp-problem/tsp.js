@@ -11,9 +11,9 @@ function getCombinations(allVertexes, start, size, path, paths) {
         return
     }
     for (let i = start; i < allVertexes.length; i++) {
-        path ^= (1 << i)
-        getCombinations(allVertexes, i + 1, size - 1, path, paths)
-        path ^= (1 << i)
+        const subpath = path ? path.slice() : []
+        subpath.push(allVertexes[i])
+        getCombinations(allVertexes, i + 1, size - 1, subpath, paths)
     }
     return paths;
 }
@@ -39,7 +39,7 @@ function TSPProblem(vertices, distances, r) {
         // console.log(dashes)
         // console.log("SIZE of SET", m)
         // console.log("-----")
-        paths = getCombinations(vertices, 0, m, 0)
+        paths = getCombinations(vertices, 0, m)
         // for each set from sets
         for (let p = 0; p < paths.length; p++) {
             if (paths[p][0] !== startVertex) {
@@ -136,7 +136,7 @@ module.exports = {
     TSPProblem
 }
 
-const p1 = getGraph('data/tsp.txt')
+const p1 = getGraph('data/test4.txt')
     .then(([vertices, distances]) => {
         //const paths = getCombinations(vertices, 0, 5);
         //console.log(paths)
