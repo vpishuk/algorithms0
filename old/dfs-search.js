@@ -36,11 +36,15 @@ function generateGraph(graph) {
     return {heads, tails, vertexes};
 }
 
-function findSCCs(graph) {
+function findSCCs(graph, maxVertex, minVertex) {
     let finishingTimes = new Map();
     let visited = new Set();
     let t = 0, _ = null;
-    for (let i = graph.vertexes.size; i > 0; i--) {
+    console.log('starting from ', maxVertex)
+    for (let i = maxVertex; i >= minVertex; i--) {
+        if (!graph.get(i)) {
+            continue;
+        }
         if (!visited.has(i)) {
             [_, t] = DFSLoop(graph, i, -1, finishingTimes, visited, t);
         }

@@ -1,0 +1,336 @@
+read complete
+read done
+Looking for SCCS
+max 8 min -8
+-----
+DFS LOOP for Vertex 8 direction -1
+--
+Vertex 8
+Take IN edges
+Set {
+  Edge { vertexA: 8, vertexB: 8, cost: 0, originalCost: 0 },
+  Edge { vertexA: -4, vertexB: 8, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: 8, vertexB: 8, cost: 0, originalCost: 0 },
+  done: false }
+{ value: Edge { vertexA: -4, vertexB: 8, cost: 0, originalCost: 0 },
+  done: false }
+[ -4 ]
+--
+Vertex -4
+[]
+Map { 1 => -4, 2 => 8 }
+-----
+DFS LOOP for Vertex 6 direction -1
+--
+Vertex 6
+Take IN edges
+Set {
+  Edge { vertexA: -2, vertexB: 6, cost: 0, originalCost: 0 },
+  Edge { vertexA: -1, vertexB: 6, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: -2, vertexB: 6, cost: 0, originalCost: 0 },
+  done: false }
+{ value: Edge { vertexA: -1, vertexB: 6, cost: 0, originalCost: 0 },
+  done: false }
+[ -1, -2 ]
+--
+Vertex -1
+[ -2 ]
+--
+Vertex -2
+Take IN edges
+Set { Edge { vertexA: 6, vertexB: -2, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: 6, vertexB: -2, cost: 0, originalCost: 0 },
+  done: false }
+[]
+Map { 1 => -4, 2 => 8, 3 => -1, 4 => -2, 5 => 6 }
+-----
+DFS LOOP for Vertex 4 direction -1
+--
+Vertex 4
+Take IN edges
+Set {
+  Edge { vertexA: 3, vertexB: 4, cost: 0, originalCost: 0 },
+  Edge { vertexA: -8, vertexB: 4, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: 3, vertexB: 4, cost: 0, originalCost: 0 },
+  done: false }
+{ value: Edge { vertexA: -8, vertexB: 4, cost: 0, originalCost: 0 },
+  done: false }
+[ -8, 3 ]
+--
+Vertex -8
+Take IN edges
+Set {
+  Edge { vertexA: -8, vertexB: -8, cost: 0, originalCost: 0 },
+  Edge { vertexA: -2, vertexB: -8, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: -8, vertexB: -8, cost: 0, originalCost: 0 },
+  done: false }
+{ value: Edge { vertexA: -2, vertexB: -8, cost: 0, originalCost: 0 },
+  done: false }
+[ 3 ]
+--
+Vertex 3
+Take IN edges
+Set {
+  Edge { vertexA: -3, vertexB: 3, cost: 0, originalCost: 0 },
+  Edge { vertexA: -3, vertexB: 3, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: -3, vertexB: 3, cost: 0, originalCost: 0 },
+  done: false }
+{ value: Edge { vertexA: -3, vertexB: 3, cost: 0, originalCost: 0 },
+  done: false }
+[ -3, -3 ]
+--
+Vertex -3
+Take IN edges
+Set { Edge { vertexA: -4, vertexB: -3, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: -4, vertexB: -3, cost: 0, originalCost: 0 },
+  done: false }
+[ -3 ]
+--
+Vertex -3
+[]
+Map {
+  1 => -4,
+  2 => 8,
+  3 => -1,
+  4 => -2,
+  5 => 6,
+  6 => -8,
+  7 => -3,
+  8 => -3,
+  9 => 3,
+  10 => 4 }
+-----
+DFS LOOP for Vertex 2 direction -1
+--
+Vertex 2
+Take IN edges
+Set {
+  Edge { vertexA: 8, vertexB: 2, cost: 0, originalCost: 0 },
+  Edge { vertexA: -6, vertexB: 2, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: 8, vertexB: 2, cost: 0, originalCost: 0 },
+  done: false }
+{ value: Edge { vertexA: -6, vertexB: 2, cost: 0, originalCost: 0 },
+  done: false }
+[ -6 ]
+--
+Vertex -6
+Take IN edges
+Set { Edge { vertexA: 2, vertexB: -6, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: 2, vertexB: -6, cost: 0, originalCost: 0 },
+  done: false }
+[]
+Map {
+  1 => -4,
+  2 => 8,
+  3 => -1,
+  4 => -2,
+  5 => 6,
+  6 => -8,
+  7 => -3,
+  8 => -3,
+  9 => 3,
+  10 => 4,
+  11 => -6,
+  12 => 2 }
+-----
+DFS LOOP for Vertex 1 direction -1
+--
+Vertex 1
+Take IN edges
+Set { Edge { vertexA: -6, vertexB: 1, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: -6, vertexB: 1, cost: 0, originalCost: 0 },
+  done: false }
+[]
+Map {
+  1 => -4,
+  2 => 8,
+  3 => -1,
+  4 => -2,
+  5 => 6,
+  6 => -8,
+  7 => -3,
+  8 => -3,
+  9 => 3,
+  10 => 4,
+  11 => -6,
+  12 => 2,
+  13 => 1 }
+DFS loop on reverse graph complete!
+Map {
+  1 => -4,
+  2 => 8,
+  3 => -1,
+  4 => -2,
+  5 => 6,
+  6 => -8,
+  7 => -3,
+  8 => -3,
+  9 => 3,
+  10 => 4,
+  11 => -6,
+  12 => 2,
+  13 => 1 }
+running DFS loop on vertex 1
+-----
+DFS LOOP for Vertex 1 direction 1
+--
+Vertex 1
+[]
+Map { 1 => 1 }
+Set { 1 }
+running DFS loop on vertex 2
+-----
+DFS LOOP for Vertex 2 direction 1
+--
+Vertex 2
+Take out edges
+Set { Edge { vertexA: 2, vertexB: -6, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: 2, vertexB: -6, cost: 0, originalCost: 0 },
+  done: false }
+[ -6 ]
+--
+Vertex -6
+Take out edges
+Set {
+  Edge { vertexA: -6, vertexB: 2, cost: 0, originalCost: 0 },
+  Edge { vertexA: -6, vertexB: 1, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: -6, vertexB: 2, cost: 0, originalCost: 0 },
+  done: false }
+{ value: Edge { vertexA: -6, vertexB: 1, cost: 0, originalCost: 0 },
+  done: false }
+[]
+Map { 1 => -6, 2 => 2 }
+Set { 2, -6 }
+running DFS loop on vertex -6
+running DFS loop on vertex 4
+-----
+DFS LOOP for Vertex 4 direction 1
+--
+Vertex 4
+[]
+Map { 1 => 4 }
+Set { 4 }
+running DFS loop on vertex 3
+-----
+DFS LOOP for Vertex 3 direction 1
+--
+Vertex 3
+Take out edges
+Set { Edge { vertexA: 3, vertexB: 4, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: 3, vertexB: 4, cost: 0, originalCost: 0 },
+  done: false }
+[]
+Map { 1 => 3 }
+Set { 3 }
+running DFS loop on vertex -3
+-----
+DFS LOOP for Vertex -3 direction 1
+--
+Vertex -3
+Take out edges
+Set {
+  Edge { vertexA: -3, vertexB: 3, cost: 0, originalCost: 0 },
+  Edge { vertexA: -3, vertexB: 3, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: -3, vertexB: 3, cost: 0, originalCost: 0 },
+  done: false }
+{ value: Edge { vertexA: -3, vertexB: 3, cost: 0, originalCost: 0 },
+  done: false }
+[]
+Map { 1 => -3 }
+Set { -3 }
+running DFS loop on vertex -3
+running DFS loop on vertex -8
+-----
+DFS LOOP for Vertex -8 direction 1
+--
+Vertex -8
+Take out edges
+Set {
+  Edge { vertexA: -8, vertexB: -8, cost: 0, originalCost: 0 },
+  Edge { vertexA: -8, vertexB: 4, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: -8, vertexB: -8, cost: 0, originalCost: 0 },
+  done: false }
+{ value: Edge { vertexA: -8, vertexB: 4, cost: 0, originalCost: 0 },
+  done: false }
+[]
+Map { 1 => -8 }
+Set { -8 }
+running DFS loop on vertex 6
+-----
+DFS LOOP for Vertex 6 direction 1
+--
+Vertex 6
+Take out edges
+Set { Edge { vertexA: 6, vertexB: -2, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: 6, vertexB: -2, cost: 0, originalCost: 0 },
+  done: false }
+[ -2 ]
+--
+Vertex -2
+Take out edges
+Set {
+  Edge { vertexA: -2, vertexB: -8, cost: 0, originalCost: 0 },
+  Edge { vertexA: -2, vertexB: 6, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: -2, vertexB: -8, cost: 0, originalCost: 0 },
+  done: false }
+{ value: Edge { vertexA: -2, vertexB: 6, cost: 0, originalCost: 0 },
+  done: false }
+[]
+Map { 1 => -2, 2 => 6 }
+Set { 6, -2 }
+running DFS loop on vertex -2
+running DFS loop on vertex -1
+-----
+DFS LOOP for Vertex -1 direction 1
+--
+Vertex -1
+Take out edges
+Set { Edge { vertexA: -1, vertexB: 6, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: -1, vertexB: 6, cost: 0, originalCost: 0 },
+  done: false }
+[]
+Map { 1 => -1 }
+Set { -1 }
+running DFS loop on vertex 8
+-----
+DFS LOOP for Vertex 8 direction 1
+--
+Vertex 8
+Take out edges
+Set {
+  Edge { vertexA: 8, vertexB: 8, cost: 0, originalCost: 0 },
+  Edge { vertexA: 8, vertexB: 2, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: 8, vertexB: 8, cost: 0, originalCost: 0 },
+  done: false }
+{ value: Edge { vertexA: 8, vertexB: 2, cost: 0, originalCost: 0 },
+  done: false }
+[]
+Map { 1 => 8 }
+Set { 8 }
+running DFS loop on vertex -4
+-----
+DFS LOOP for Vertex -4 direction 1
+--
+Vertex -4
+Take out edges
+Set {
+  Edge { vertexA: -4, vertexB: -3, cost: 0, originalCost: 0 },
+  Edge { vertexA: -4, vertexB: 8, cost: 0, originalCost: 0 } }
+{ value: Edge { vertexA: -4, vertexB: -3, cost: 0, originalCost: 0 },
+  done: false }
+{ value: Edge { vertexA: -4, vertexB: 8, cost: 0, originalCost: 0 },
+  done: false }
+[]
+Map { 1 => -4 }
+Set { -4 }
+[ Set { 1 },
+  Set { 2, -6 },
+  Set { 4 },
+  Set { 3 },
+  Set { -3 },
+  Set { -8 },
+  Set { 6, -2 },
+  Set { -1 },
+  Set { 8 },
+  Set { -4 } ]
+RESULT: 1

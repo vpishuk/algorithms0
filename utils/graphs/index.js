@@ -7,11 +7,11 @@ class Edge {
     }
 
     getHead() {
-        return this.vertexB
+        return this.vertexA
     }
 
     getTail() {
-        return this.vertexA
+        return this.vertexB
     }
 
     getCost() {
