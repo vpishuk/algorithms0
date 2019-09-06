@@ -1,0 +1,358 @@
+read complete
+read done
+[ [ 1, 0, 1, 1, 0, 1 ],
+  [ 1, 1, 1, 0, 0, 1 ],
+  [ 1, 0, 1, 0, 0, 1 ],
+  [ 1, 1, 1, 1, 1, 1 ],
+  [ 0, 1, 0, 0, 0, 1 ],
+  [ 0, 1, 0, 0, 0, 2 ] ]
+---------------
+path 
+checking direction t
+can not go in direction t
+checking direction b
+trying to solve for direction b
+---------------
+path b
+checking direction b
+trying to solve for direction b
+---------------
+path b b
+checking direction b
+trying to solve for direction b
+---------------
+path b b b
+checking direction b
+can not go in direction b
+checking direction l
+can not go in direction l
+checking direction r
+trying to solve for direction r
+---------------
+path b b b r
+checking direction t
+can not go in direction t
+checking direction b
+trying to solve for direction b
+---------------
+path b b b r b
+checking direction b
+trying to solve for direction b
+---------------
+path b b b r b b
+checking direction b
+can not go in direction b
+checking direction l
+can not go in direction l
+checking direction r
+can not go in direction r
+can not find solution for direction b
+go back in direction t
+checking direction l
+can not go in direction l
+checking direction r
+can not go in direction r
+can not find solution for direction b
+go back in direction t
+checking direction r
+trying to solve for direction r
+---------------
+path b b b r r
+checking direction t
+trying to solve for direction t
+---------------
+path b b b r r t
+checking direction t
+trying to solve for direction t
+---------------
+path b b b r r t t
+checking direction t
+trying to solve for direction t
+---------------
+path b b b r r t t t
+checking direction t
+can not go in direction t
+checking direction l
+can not go in direction l
+checking direction r
+trying to solve for direction r
+---------------
+path b b b r r t t t r
+checking direction t
+can not go in direction t
+checking direction b
+can not go in direction b
+checking direction r
+can not go in direction r
+can not find solution for direction r
+go back in direction l
+can not find solution for direction t
+go back in direction b
+checking direction l
+trying to solve for direction l
+---------------
+path b b b r r t t l
+checking direction t
+can not go in direction t
+checking direction b
+can not go in direction b
+checking direction l
+trying to solve for direction l
+---------------
+path b b b r r t t l l
+checking direction t
+cyclic path... can not use direction [ 'b', 'b', 'b', 'r', 'r', 't', 't', 'l', 'l' ]
+can not find solution for direction l
+go back in direction r
+can not find solution for direction l
+go back in direction r
+checking direction r
+can not go in direction r
+can not find solution for direction t
+go back in direction b
+checking direction l
+can not go in direction l
+checking direction r
+can not go in direction r
+can not find solution for direction t
+go back in direction b
+checking direction b
+can not go in direction b
+checking direction r
+trying to solve for direction r
+---------------
+path b b b r r r
+checking direction t
+can not go in direction t
+checking direction b
+can not go in direction b
+checking direction r
+trying to solve for direction r
+---------------
+path b b b r r r r
+checking direction t
+can not go in direction t
+checking direction b
+can not go in direction b
+checking direction r
+trying to solve for direction r
+---------------
+path b b b r r r r r
+checking direction t
+trying to solve for direction t
+---------------
+path b b b r r r r r t
+checking direction t
+trying to solve for direction t
+---------------
+path b b b r r r r r t t
+checking direction t
+trying to solve for direction t
+---------------
+path b b b r r r r r t t t
+checking direction t
+can not go in direction t
+checking direction l
+can not go in direction l
+checking direction r
+can not go in direction r
+can not find solution for direction t
+go back in direction b
+checking direction l
+can not go in direction l
+checking direction r
+can not go in direction r
+can not find solution for direction t
+go back in direction b
+checking direction l
+can not go in direction l
+checking direction r
+can not go in direction r
+can not find solution for direction t
+go back in direction b
+checking direction b
+trying to solve for direction b
+---------------
+path b b b r r r r r b
+checking direction b
+trying to solve for direction b
+b b b r r r r r b b
+read complete
+read done
+[ [ 1, 0, 1, 1, 0, 1 ],
+  [ 1, 1, 1, 0, 0, 1 ],
+  [ 1, 0, 1, 0, 0, 1 ],
+  [ 1, 1, 1, 1, 1, 1 ],
+  [ 0, 1, 0, 0, 0, 1 ],
+  [ 0, 1, 0, 0, 0, 2 ] ]
+---------------
+path 
+checking direction t
+can not go in direction t
+checking direction b
+trying to solve for direction b
+---------------
+path b
+checking direction b
+trying to solve for direction b
+---------------
+path b b
+checking direction b
+trying to solve for direction b
+---------------
+path b b b
+checking direction b
+can not go in direction b
+checking direction l
+can not go in direction l
+checking direction r
+trying to solve for direction r
+---------------
+path b b b r
+checking direction t
+can not go in direction t
+checking direction b
+trying to solve for direction b
+---------------
+path b b b r b
+checking direction b
+trying to solve for direction b
+---------------
+path b b b r b b
+checking direction b
+can not go in direction b
+checking direction l
+can not go in direction l
+checking direction r
+can not go in direction r
+can not find solution for direction b
+go back in direction t
+checking direction l
+can not go in direction l
+checking direction r
+can not go in direction r
+can not find solution for direction b
+go back in direction t
+checking direction r
+trying to solve for direction r
+---------------
+path b b b r r
+checking direction t
+trying to solve for direction t
+---------------
+path b b b r r t
+checking direction t
+trying to solve for direction t
+---------------
+path b b b r r t t
+checking direction t
+trying to solve for direction t
+---------------
+path b b b r r t t t
+checking direction t
+can not go in direction t
+checking direction l
+can not go in direction l
+checking direction r
+trying to solve for direction r
+---------------
+path b b b r r t t t r
+checking direction t
+can not go in direction t
+checking direction b
+can not go in direction b
+checking direction r
+can not go in direction r
+can not find solution for direction r
+go back in direction l
+can not find solution for direction t
+go back in direction b
+checking direction l
+trying to solve for direction l
+---------------
+path b b b r r t t l
+checking direction t
+can not go in direction t
+checking direction b
+can not go in direction b
+checking direction l
+trying to solve for direction l
+---------------
+path b b b r r t t l l
+checking direction t
+cyclic path... can not use direction [ 'b', 'b', 'b', 'r', 'r', 't', 't', 'l', 'l' ]
+can not find solution for direction l
+go back in direction r
+can not find solution for direction l
+go back in direction r
+checking direction r
+can not go in direction r
+can not find solution for direction t
+go back in direction b
+checking direction l
+can not go in direction l
+checking direction r
+can not go in direction r
+can not find solution for direction t
+go back in direction b
+checking direction b
+can not go in direction b
+checking direction r
+trying to solve for direction r
+---------------
+path b b b r r r
+checking direction t
+can not go in direction t
+checking direction b
+can not go in direction b
+checking direction r
+trying to solve for direction r
+---------------
+path b b b r r r r
+checking direction t
+can not go in direction t
+checking direction b
+can not go in direction b
+checking direction r
+trying to solve for direction r
+---------------
+path b b b r r r r r
+checking direction t
+trying to solve for direction t
+---------------
+path b b b r r r r r t
+checking direction t
+trying to solve for direction t
+---------------
+path b b b r r r r r t t
+checking direction t
+trying to solve for direction t
+---------------
+path b b b r r r r r t t t
+checking direction t
+can not go in direction t
+checking direction l
+can not go in direction l
+checking direction r
+can not go in direction r
+can not find solution for direction t
+go back in direction b
+checking direction l
+can not go in direction l
+checking direction r
+can not go in direction r
+can not find solution for direction t
+go back in direction b
+checking direction l
+can not go in direction l
+checking direction r
+can not go in direction r
+can not find solution for direction t
+go back in direction b
+checking direction b
+trying to solve for direction b
+---------------
+path b b b r r r r r b
+checking direction b
+trying to solve for direction b
+b b b r r r r r b b
